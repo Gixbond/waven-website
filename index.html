@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>WAVEN - Luxury Villa Lombok</title>
+		<!-- Elena Font einbinden (BITTE [Ihre-Kit-ID] ERSETZEN!) -->
+		<link rel="stylesheet" href="https://use.typekit.net/[Ihre-Kit-ID].css">
+		<style>
+			/* @font-face rules removed */
+
+			:root {
+				--primary-blue: #1B4B59;
+				--secondary-blue: #235E6F;
+				--light-blue: #2D7688;
+				--dark-blue: #0F2F39;
+				--concrete: #D1D1D1;
+				--text-light: #FFFFFF;
+				--text-dark: #2C2C2C;
+				--overlay: rgba(27, 75, 89, 0.2);
+			}
+
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				font-family: 'elena', serif; /* Use Elena font */
+				-webkit-font-smoothing: antialiased;
+			}
+
+			body {
+				background-color: var(--primary-blue);
+				color: var(--text-light);
+				line-height: 1.6;
+			}
+
+			.nav {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				padding: 2rem 4rem;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				z-index: 100;
+				background: linear-gradient(180deg, rgba(27, 75, 89, 0.95) 0%, rgba(27, 75, 89, 0) 100%);
+				backdrop-filter: blur(8px);
+			}
+
+			.nav-container {
+				display: flex;
+				align-items: center;
+			}
+
+			.nav-logo {
+				font-size: 1.2rem;
+				font-weight: 300;
+				letter-spacing: 0.5em;
+				color: var(--text-light);
+				text-transform: uppercase;
+			}
+
+			.nav-logo img {
+				height: 40px; /* Adjust height as needed */
+				width: auto;
+				filter: brightness(0.1) invert(1); /* Make black parts slightly off-white */
+				transition: transform 0.3s ease; /* Add transition for smooth effect */
+			}
+
+			.nav-logo img:hover {
+				transform: scale(1.1) translateY(-2px); /* Scale up and move slightly up on hover */
+			}
+
+			.nav-links {
+				display: flex;
+				gap: 4rem;
+			}
+
+			.nav-link {
+				color: var(--text-light);
+				text-decoration: none;
+				font-weight: 300;
+				letter-spacing: 0.2em;
+				text-transform: uppercase;
+				font-size: 0.9rem;
+				position: relative;
+				transition: color 0.3s ease;
+			}
+
+			.nav-link::after {
+				content: '';
+				position: absolute;
+				bottom: -4px;
+				left: 0;
+				width: 0;
+				height: 1px;
+				background-color: var(--light-blue);
+				transition: width 0.3s ease;
+			}
+
+			.nav-link:hover {
+				color: var(--light-blue);
+			}
+
+			.nav-link:hover::after {
+				width: 100%;
+			}
+
+			.hero {
+				height: 100vh;
+				width: 100%;
+				position: relative;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: var(--primary-blue);
+				overflow: hidden;
+			}
+
+			.hero-image {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				filter: brightness(0.95) contrast(1.05);
+			}
+
+			.hero-content {
+				position: relative;
+				z-index: 2;
+				text-align: center;
+				color: var(--text-light);
+				padding: 0 2rem;
+				margin-top: -15vh;
+			}
+
+			.hero-logo {
+				height: 150px;
+				width: auto;
+				filter: brightness(0.1) invert(1);
+				display: block;
+				margin: 0 auto;
+				opacity: 1;
+				transition: transform 0.3s ease;
+			}
+
+			.hero-logo:hover {
+				transform: scale(1.05) translateY(-5px);
+			}
+
+			.hero-title {
+				font-size: clamp(3rem, 12vw, 7rem);
+				font-weight: 300;
+				letter-spacing: 0.5em;
+				text-transform: uppercase;
+				margin-right: -0.5em;
+				line-height: 1.2;
+				opacity: 0;
+				animation: fadeIn 1s ease-out forwards 0.5s;
+			}
+
+			.hero-subtitle {
+				font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+				font-weight: 300;
+				letter-spacing: 0.3em;
+				text-transform: uppercase;
+				margin-top: 2rem;
+				opacity: 1;
+				color: var(--text-light);
+				text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+			}
+
+			.scroll-indicator {
+				position: absolute;
+				bottom: 2rem;
+				left: 50%;
+				transform: translateX(-50%);
+				color: var(--text-light);
+				font-size: 0.8rem;
+				letter-spacing: 0.3em;
+				text-transform: uppercase;
+				opacity: 0;
+				animation: fadeInUp 1s ease-out forwards 1.5s;
+			}
+
+			@keyframes fadeIn {
+				from { opacity: 0; transform: translateY(20px); }
+				to { opacity: 1; transform: translateY(0); }
+			}
+
+			@keyframes fadeInUp {
+				from { opacity: 0; transform: translate(-50%, 20px); }
+				to { opacity: 1; transform: translate(-50%, 0); }
+			}
+
+			.overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(
+					to bottom,
+					rgba(27, 75, 89, 0.4) 0%,
+					rgba(27, 75, 89, 0.1) 40%,
+					rgba(27, 75, 89, 0.1) 60%,
+					rgba(27, 75, 89, 0.4) 100%
+				);
+				z-index: 1;
+				pointer-events: none;
+			}
+
+			/* Vision Section Styles */
+			.vision {
+				min-height: 100vh;
+				padding: 8rem 2rem;
+				background-color: var(--text-light);
+				color: var(--text-dark);
+				display: flex;
+				align-items: center;
+				opacity: 1;
+			}
+
+			.vision-container {
+				max-width: 1200px;
+				margin: 0 auto;
+				display: grid;
+				grid-template-columns: 1fr;
+				gap: 4rem;
+				align-items: center;
+			}
+
+			.vision-content {
+				padding: 2rem;
+			}
+
+			.vision-title {
+				font-size: clamp(2rem, 4vw, 3rem);
+				font-weight: 300;
+				letter-spacing: 0.2em;
+				color: var(--primary-blue);
+				margin-bottom: 2rem;
+				opacity: 1;
+				text-transform: uppercase;
+			}
+
+			.vision-text {
+				font-size: 1.1rem;
+				line-height: 1.8;
+				color: var(--text-dark);
+				margin-bottom: 2rem;
+				opacity: 1;
+				font-weight: 300;
+				letter-spacing: 0.02em;
+			}
+
+			.vision-image {
+				width: 100%;
+				height: 800px;
+				object-fit: cover;
+				border-radius: 4px;
+				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+				opacity: 1;
+				position: relative;
+				overflow: hidden;
+			}
+
+			/* Apple-style sections */
+			.feature-section {
+				height: 100vh;
+				position: relative;
+				background-color: var(--primary-blue);
+				overflow: hidden;
+			}
+
+			.feature-container {
+				height: 100vh;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 8vw;
+			}
+
+			.feature-text {
+				flex: 0 1 40%;
+				color: var(--text-light);
+			}
+
+			.feature-heading {
+				font-size: clamp(2rem, 4vw, 3rem);
+				font-weight: 300;
+				margin-bottom: 2rem;
+				opacity: 1;
+				text-transform: uppercase;
+				letter-spacing: 0.2em;
+			}
+
+			.feature-description {
+				font-size: 1.1rem;
+				line-height: 1.8;
+				font-weight: 300;
+				opacity: 1;
+				letter-spacing: 0.02em;
+				margin-bottom: 2rem;
+			}
+
+			.feature-image-container {
+				flex: 0 1 50%;
+				height: 70vh;
+				position: relative;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.feature-image {
+				width: 105%;
+				height: 105%;
+				max-height: 100%;
+				object-fit: contain;
+				border-radius: 12px;
+				opacity: 1;
+			}
+
+			/* Add new style for section subtitles */
+			.section-subtitle {
+				font-size: 1.2rem;
+				font-weight: 300;
+				margin-bottom: 2rem;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+			}
+		</style>
+		<!-- GSAP & ScrollTrigger Scripts -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+	</head>
+	<body>
+		<nav class="nav">
+			<div class="nav-container">
+				<a href="#top" class="nav-logo">
+					<img src="images/waven-logo.svg" alt="WAVEN Logo" style="height: 40px;">
+				</a>
+			</div>
+			<div class="nav-links">
+				<a href="#vision" class="nav-link">Vision</a>
+				<a href="#luxus" class="nav-link">Regionale Entwicklung</a>
+				<a href="#grundstueckmarkt" class="nav-link">Grundstückmarkt</a>
+				<a href="#zielgruppen" class="nav-link">Zielgruppen</a>
+				<a href="#betriebskosten" class="nav-link">Betriebskosten</a>
+				<a href="#finanzmodell" class="nav-link">Finanzmodell</a>
+				<a href="#investment" class="nav-link">Investment</a>
+			</div>
+		</nav>
+
+		<section class="hero">
+			<div class="overlay"></div>
+			<img src="images/hero.jpg" 
+				 alt="WAVEN Luxury Villa" 
+				 class="hero-image">
+			<div class="hero-content">
+				<img src="images/waven-logo.svg" alt="Waven Logo" class="hero-logo">
+				<p class="hero-subtitle">Luxury in Nature</p>
+			</div>
+			<div class="scroll-indicator">Explore</div>
+		</section>
+
+		<section id="vision" class="vision">
+			<div class="vision-container">
+				<div class="vision-content">
+					<h2 class="vision-title">UNSERE VISION</h2>
+					<p class="vision-text">
+						Das Villenprojekt in Are Guling, Lombok, verfolgt das Ziel, eine moderne, minimalistisch designte Privatvilla mit Schweizer Qualitätsanspruch zu errichten. Auf einem bestehenden Hanggrundstück mit Meerblick entsteht ein exklusives Wohnobjekt mit ca. 200 m² Wohnfläche, zwei großzügigen Schlafzimmern mit Open-Air-Duschen, einem offenen Loft-Wohnbereich, Infinity-Pool und einer naturnahen, hochwertigen Ausstattung.
+					</p>
+					<p class="vision-text">
+						Die Besonderheit: Das Projekt wird nicht durch institutionelle Investoren, sondern über ein transparentes Darlehensmodell mit privaten Freunden und Familie realisiert – ohne Abgabe von Eigentumsanteilen. Die Unterstützer erhalten eine fixe Verzinsung (3–5 % p.a.) bei Rückzahlung innerhalb von 5–7 Jahren. Ziel ist es, ein Objekt zu schaffen, das sowohl zur Eigennutzung als auch zur hochwertigen Vermietung dient – ausgerichtet auf Menschen, die naturnahes Design, Ruhe und exklusiven Zugang zu einem der besten Surfspots der Welt suchen.
+					</p>
+				</div>
+				<img src="images/vision.jpg" alt="WAVEN Villa Vision" class="vision-image">
+			</div>
+		</section>
+
+		<!-- Combined Feature Section -->
+		<section id="luxus" class="feature-section">
+			<div class="feature-container">
+				<div class="feature-text">
+					<h2 class="feature-heading">LUXUS IM EINKLANG MIT DER NATUR</h2>
+					<p class="feature-description">
+						Eingebettet in die atemberaubende Landschaft von Are Guling, verbindet unsere Villa modernste Architektur mit der unberührten Schönheit Lomboks. Der Infinity-Pool verschmilzt nahtlos mit dem Horizont des Indischen Ozeans, während Open-Air-Bereiche die Grenze zwischen innen und außen aufheben.
+					</p>
+					<h2 class="feature-heading" style="margin-top: 3rem;">REGIONALE ENTWICKLUNG</h2>
+					<p class="feature-description">
+						Lombok ist Teil der staatlichen indonesischen Tourismusstrategie "10 New Balis". Im Fokus steht Mandalika – eine Sonderwirtschaftszone (KEK) mit Großinvestitionen in Hotels, Freizeitprojekte und Infrastruktur wie den MotoGP Circuit (seit 2022), neue Schnellstraßen und einen modernisierten Flughafen (LOP) mit internationalen Direktverbindungen.
+					</p>
+					<p class="feature-description">
+						Are Guling (10 Min. westlich von Kuta) profitiert indirekt von diesen Entwicklungen, bleibt aber ein Geheimtipp: Hanglagen, Surfspot mit Weltruf und begrenzte Bebauung schaffen ein rares Gleichgewicht. Lokale Insider berichten von gezielten Infrastrukturinvestitionen in der Region dank eines neu gewählten Regionalpolitikers.
+					</p>
+					<p class="feature-description">
+						Die touristischen Perspektiven sind exzellent: zweistelliges Wachstum und ein steigender Zustrom an Digital Nomads, Europäern und Australiern.
+					</p>
+				</div>
+				<div class="feature-image-container">
+					<img src="images/luxus.jpg" alt="WAVEN Villa Feature" class="feature-image">
+				</div>
+			</div>
+		</section>
+
+		<!-- Property Market Section -->
+		<section id="grundstueckmarkt" class="vision" style="background-color: var(--primary-blue); color: var(--text-light);">
+			<div class="vision-container" style="grid-template-columns: 1fr;">
+				<div class="vision-content">
+					<h2 class="vision-title" style="color: var(--text-light);">GRUNDSTÜCKSMARKT & PREISENTWICKLUNG</h2>
+					<p class="vision-text" style="color: var(--text-light);">
+						Die Preise für Baugrund in der Region haben sich seit 2021 deutlich verteuert. Das betrifft vor allem Kuta, aber auch zunehmend Are Guling, Gerupuk und Selong Belanak.
+					</p>
+					<div style="margin: 2rem 0; overflow-x: auto;">
+						<table style="width: 100%; border-collapse: collapse; color: var(--text-light);" class="property-table">
+							<thead>
+								<tr>
+									<th style="padding: 1.5rem; text-align: left; border-bottom: 2px solid var(--light-blue); font-weight: 300; letter-spacing: 0.1em;">Region</th>
+									<th style="padding: 1.5rem; text-align: left; border-bottom: 2px solid var(--light-blue); font-weight: 300; letter-spacing: 0.1em;">Preis (USD/m²)</th>
+									<th style="padding: 1.5rem; text-align: left; border-bottom: 2px solid var(--light-blue); font-weight: 300; letter-spacing: 0.1em;">IDR/Areal (100 m²)</th>
+									<th style="padding: 1.5rem; text-align: left; border-bottom: 2px solid var(--light-blue); font-weight: 300; letter-spacing: 0.1em;">Entwicklung</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr style="transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.backgroundColor='rgba(45, 118, 136, 0.2)'" onmouseout="this.style.backgroundColor='transparent'">
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">Kuta Lombok</td>
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">150–350</td>
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">240–500 Mio</td>
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue);">
+										<span style="background-color: rgba(45, 118, 136, 0.2); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 300;">Hoch</span>
+									</td>
+								</tr>
+								<tr style="transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.backgroundColor='rgba(45, 118, 136, 0.2)'" onmouseout="this.style.backgroundColor='transparent'">
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">Are Guling</td>
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">80–200</td>
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">128–320 Mio</td>
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue);">
+										<span style="background-color: rgba(45, 118, 136, 0.2); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 300;">Steigend</span>
+									</td>
+								</tr>
+								<tr style="transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.backgroundColor='rgba(45, 118, 136, 0.2)'" onmouseout="this.style.backgroundColor='transparent'">
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">Selong Belanak</td>
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">60–200</td>
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">90–320 Mio</td>
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue);">
+										<span style="background-color: rgba(45, 118, 136, 0.2); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 300;">Premium</span>
+									</td>
+								</tr>
+								<tr style="transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.backgroundColor='rgba(45, 118, 136, 0.2)'" onmouseout="this.style.backgroundColor='transparent'">
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">Gerupuk</td>
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">70–150</td>
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">112–240 Mio</td>
+									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue);">
+										<span style="background-color: rgba(45, 118, 136, 0.2); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 300;">Wachsend</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div style="margin: 4rem 0; padding: 2rem; background-color: rgba(45, 118, 136, 0.1); border-radius: 12px;">
+						<h3 style="font-size: 1.5rem; font-weight: 300; margin-bottom: 2rem; letter-spacing: 0.1em; text-transform: uppercase;">PREISVERGLEICH NACH REGION (USD/m²)</h3>
+						<div style="display: flex; flex-direction: column; gap: 1.5rem;">
+							<div style="display: flex; align-items: center; gap: 1rem;">
+								<div style="width: 120px; font-weight: 300;">Kuta Lombok</div>
+								<div style="flex: 1; height: 30px; background-color: rgba(45, 118, 136, 0.2); position: relative; padding-right: 100px; transition: all 0.3s ease;">
+									<div style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-color: var(--light-blue); transition: all 0.3s ease;" onmouseover="this.style.transform='scaleY(1.2)'; this.style.transformOrigin='bottom'; this.parentElement.style.transform='scaleY(1.1)'; this.parentElement.style.transformOrigin='bottom'" onmouseout="this.style.transform='scaleY(1)'; this.parentElement.style.transform='scaleY(1)'"></div>
+									<div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-weight: 300;">150–350</div>
+								</div>
+							</div>
+							<div style="display: flex; align-items: center; gap: 1rem;">
+								<div style="width: 120px; font-weight: 300;">Are Guling</div>
+								<div style="flex: 1; height: 30px; background-color: rgba(45, 118, 136, 0.2); position: relative; padding-right: 100px; transition: all 0.3s ease;">
+									<div style="position: absolute; top: 0; left: 0; height: 100%; width: 57%; background-color: var(--light-blue); transition: all 0.3s ease;" onmouseover="this.style.transform='scaleY(1.2)'; this.style.transformOrigin='bottom'; this.parentElement.style.transform='scaleY(1.1)'; this.parentElement.style.transformOrigin='bottom'" onmouseout="this.style.transform='scaleY(1)'; this.parentElement.style.transform='scaleY(1)'"></div>
+									<div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-weight: 300;">80–200</div>
+								</div>
+							</div>
+							<div style="display: flex; align-items: center; gap: 1rem;">
+								<div style="width: 120px; font-weight: 300;">Selong Belanak</div>
+								<div style="flex: 1; height: 30px; background-color: rgba(45, 118, 136, 0.2); position: relative; padding-right: 100px; transition: all 0.3s ease;">
+									<div style="position: absolute; top: 0; left: 0; height: 100%; width: 57%; background-color: var(--light-blue); transition: all 0.3s ease;" onmouseover="this.style.transform='scaleY(1.2)'; this.style.transformOrigin='bottom'; this.parentElement.style.transform='scaleY(1.1)'; this.parentElement.style.transformOrigin='bottom'" onmouseout="this.style.transform='scaleY(1)'; this.parentElement.style.transform='scaleY(1)'"></div>
+									<div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-weight: 300;">60–200</div>
+								</div>
+							</div>
+							<div style="display: flex; align-items: center; gap: 1rem;">
+								<div style="width: 120px; font-weight: 300;">Gerupuk</div>
+								<div style="flex: 1; height: 30px; background-color: rgba(45, 118, 136, 0.2); position: relative; padding-right: 100px; transition: all 0.3s ease;">
+									<div style="position: absolute; top: 0; left: 0; height: 100%; width: 43%; background-color: var(--light-blue); transition: all 0.3s ease;" onmouseover="this.style.transform='scaleY(1.2)'; this.style.transformOrigin='bottom'; this.parentElement.style.transform='scaleY(1.1)'; this.parentElement.style.transformOrigin='bottom'" onmouseout="this.style.transform='scaleY(1)'; this.parentElement.style.transform='scaleY(1)'"></div>
+									<div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-weight: 300;">70–150</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<p class="vision-text" style="color: var(--text-light);">
+						Are Guling bietet eine ideale Einstiegssituation für Investoren mit Weitblick. Viele Grundstücke sind bereits verkauft. Flächen mit direktem Meerblick in Hanglage erzielen Aufpreise bis zu 250 USD/m². Die Kaufpreise steigen jährlich um 15–30 %, mit zunehmend geringerem Angebot.
+					</p>
+					<p class="vision-text" style="color: var(--text-light);">
+						Typische Parzellengrößen für Villenbau liegen zwischen 7 und 15 Are (700–1500 m²).
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Zielgruppen Section -->
+		<section id="zielgruppen" class="vision" style="background-color: var(--text-light); color: var(--text-dark);">
+			<div class="vision-container" style="grid-template-columns: 1fr;">
+				<div class="vision-content">
+					<h2 class="vision-title" style="color: var(--primary-blue);">VERMIETUNGSPOTENZIAL & ZIELGRUPPEN</h2>
+					<p class="vision-text">
+						Die touristische Nachfrage in Südlombok ist zweigeteilt: In der Trockenzeit (Mai–Oktober) reisen Europäer für Badeurlaub und Erholung an – bevorzugt in hochwertige, ruhige Villen mit Aussicht. In der Regenzeit (November–April) füllen Surfer aus Australien und Asien die Unterkünfte, da Are Guling in dieser Zeit zu den besten Surfspots der Region zählt.
+					</p>
+					<p class="vision-text">
+						Ein Objekt dieser Qualität kann saisonabhängig zwischen 180 und 280 USD/Nacht erzielen. Die Hauptsaison ermöglicht Belegungsraten bis zu 90 %, in der Nebensaison sind durch Surf-Tourismus und gezielte Rabatte immer noch 40–60 % realistisch.
+					</p>
+					<p class="vision-text">
+						Eine dynamische Preisstrategie (über Plattformen wie Airbnb, Booking.com oder Agoda, kombiniert mit einer eigenen Webseite) optimiert die Einnahmen. Ein konservatives Szenario geht von 65 % Auslastung bei 220 USD/Nacht aus – das entspricht über 52.000 USD Umsatz jährlich.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Betriebskosten Section -->
+		<section id="betriebskosten" class="vision" style="background-color: var(--primary-blue); color: var(--text-light);">
+			<div class="vision-container" style="grid-template-columns: 1fr;">
+				<div class="vision-content">
+					<h2 class="vision-title" style="color: var(--text-light);">BETRIEBSKOSTEN & PERSONALSTRUKTUR</h2>
+					<p class="vision-text" style="color: var(--text-light);">
+						Für eine voll ausgestattete Villa dieser Größe sind folgende Personalkosten üblich:
+					</p>
+					<div style="margin: 4rem 0; padding: 2rem; background-color: rgba(45, 118, 136, 0.1); border-radius: 12px;">
+						<h3 style="font-size: 1.5rem; font-weight: 300; margin-bottom: 2rem; letter-spacing: 0.1em; text-transform: uppercase;">MONATLICHE PERSONALKOSTEN</h3>
+						<div style="display: flex; flex-direction: column; gap: 1.5rem;">
+							<div style="display: flex; align-items: center; gap: 1rem;">
+								<div style="width: 200px; font-weight: 300;">Villa-Manager</div>
+								<div style="flex: 1; height: 30px; background-color: rgba(45, 118, 136, 0.2); position: relative; padding-right: 200px; transition: all 0.3s ease;">
+									<div style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-color: var(--light-blue); transition: all 0.3s ease;" onmouseover="this.style.transform='scaleY(1.2)'; this.style.transformOrigin='bottom'; this.parentElement.style.transform='scaleY(1.1)'; this.parentElement.style.transformOrigin='bottom'" onmouseout="this.style.transform='scaleY(1)'; this.parentElement.style.transform='scaleY(1)'"></div>
+									<div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-weight: 300;">8–10 Mio IDR (530–670 USD)</div>
+								</div>
+							</div>
+							<div style="display: flex; align-items: center; gap: 1rem;">
+								<div style="width: 200px; font-weight: 300;">Housekeeping</div>
+								<div style="flex: 1; height: 30px; background-color: rgba(45, 118, 136, 0.2); position: relative; padding-right: 200px; transition: all 0.3s ease;">
+									<div style="position: absolute; top: 0; left: 0; height: 100%; width: 30%; background-color: var(--light-blue); transition: all 0.3s ease;" onmouseover="this.style.transform='scaleY(1.2)'; this.style.transformOrigin='bottom'; this.parentElement.style.transform='scaleY(1.1)'; this.parentElement.style.transformOrigin='bottom'" onmouseout="this.style.transform='scaleY(1)'; this.parentElement.style.transform='scaleY(1)'"></div>
+									<div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-weight: 300;">2,5–3 Mio IDR (170–200 USD)</div>
+								</div>
+							</div>
+							<div style="display: flex; align-items: center; gap: 1rem;">
+								<div style="width: 200px; font-weight: 300;">Nachtwache / Security</div>
+								<div style="flex: 1; height: 30px; background-color: rgba(45, 118, 136, 0.2); position: relative; padding-right: 200px; transition: all 0.3s ease;">
+									<div style="position: absolute; top: 0; left: 0; height: 100%; width: 30%; background-color: var(--light-blue); transition: all 0.3s ease;" onmouseover="this.style.transform='scaleY(1.2)'; this.style.transformOrigin='bottom'; this.parentElement.style.transform='scaleY(1.1)'; this.parentElement.style.transformOrigin='bottom'" onmouseout="this.style.transform='scaleY(1)'; this.parentElement.style.transform='scaleY(1)'"></div>
+									<div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-weight: 300;">2–3 Mio IDR (130–200 USD)</div>
+								</div>
+							</div>
+							<div style="display: flex; align-items: center; gap: 1rem;">
+								<div style="width: 200px; font-weight: 300;">Garten- und Poolpflege</div>
+								<div style="flex: 1; height: 30px; background-color: rgba(45, 118, 136, 0.2); position: relative; padding-right: 200px; transition: all 0.3s ease;">
+									<div style="position: absolute; top: 0; left: 0; height: 100%; width: 30%; background-color: var(--light-blue); transition: all 0.3s ease;" onmouseover="this.style.transform='scaleY(1.2)'; this.style.transformOrigin='bottom'; this.parentElement.style.transform='scaleY(1.1)'; this.parentElement.style.transformOrigin='bottom'" onmouseout="this.style.transform='scaleY(1)'; this.parentElement.style.transform='scaleY(1)'"></div>
+									<div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-weight: 300;">2–3 Mio IDR (130–200 USD)</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<p class="vision-text" style="color: var(--text-light);">
+						Die Gesamtkosten für Personal belaufen sich auf etwa 15–20 Mio. IDR monatlich (~1.000–1.330 USD). Hinzu kommen laufende Nebenkosten wie Strom, Wasser, Internet, Instandhaltung, Plattformgebühren und Steuern. Der jährliche Betriebskostensatz liegt bei 12.000–15.000 EUR.
+					</p>
+					<p class="vision-text" style="color: var(--text-light);">
+						Optional kann ein lokales Property Management für einen Prozentsatz (10–20 % der Mieteinnahmen) beauftragt werden, der dann Personal, Gästeservice und Instandhaltung koordiniert.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Finanzmodell Section -->
+		<section id="finanzmodell" class="vision" style="background-color: var(--text-light); color: var(--text-dark);">
+			<div class="vision-container" style="grid-template-columns: 1fr;">
+				<div class="vision-content">
+					<h2 class="vision-title" style="color: var(--primary-blue);">FINANZMODELL</h2>
+					<p class="vision-text">
+						Basierend auf einem Investitionsvolumen von ca. 300.000 CHF (inkl. Bau, Planung, Betrieb für 1. Jahr) und einem Eigenanteil von 100.000 CHF ergibt sich ein Fremdfinanzierungsbedarf von 200.000 CHF.
+					</p>
+					<p class="vision-text">
+						Diesen Betrag soll durch private Darlehen mit 3–5 % Zins p.a. finanziert werden, verteilt auf mehrere Unterstützer (z. B. 5–10 Personen à 20.000–40.000 CHF). Rückzahlung über 5–7 Jahre, optional mit zusätzlichem Benefit (z. B. bevorzugte Buchungsrechte).
+					</p>
+					<p class="vision-text">
+						Empfohlen wird der Start der Bauplanung 2025, Baubeginn 2026, Soft Opening Ende 2026. Die Kombination aus professioneller Struktur, persönlichem Netzwerk und attraktiver Lage bildet ein starkes Fundament für langfristigen Erfolg und Wertezuwachs.
+					</p>
+			</div>
+		</div>
+		</section>
+
+		<script>
+			// Register ScrollTrigger Plugin
+			gsap.registerPlugin(ScrollTrigger);
+
+			// Smooth scroll initialization
+			gsap.config({
+				autoSleep: 60,
+				force3D: true
+			});
+
+			// Scroll to top on page load
+			window.onload = function() {
+				window.scrollTo(0, 0);
+			};
+
+			// Hero Animations
+			gsap.from(".hero-logo", {
+				opacity: 0,
+				y: 30,
+				duration: 1,
+				ease: "power3.out"
+			});
+
+			gsap.from(".hero-subtitle", {
+				opacity: 0,
+				y: 30,
+				duration: 1,
+				delay: 0.3,
+				ease: "power3.out"
+			});
+
+			// Vision Section Animations
+			const visionTl = gsap.timeline({
+				scrollTrigger: {
+					trigger: ".vision",
+					start: "top 80%",
+					end: "bottom 80%",
+					toggleActions: "play none none reverse"
+				}
+			});
+
+			visionTl.from(".vision-title", { opacity: 0, y: 50, duration: 0.8, ease: "power3.out" })
+					.from(".vision-text", { opacity: 0, y: 30, duration: 0.6, stagger: 0.2, ease: "power3.out" }, "-=0.4");
+
+			// Feature Section Animations
+			const featureTl = gsap.timeline({
+				scrollTrigger: {
+					trigger: ".feature-section",
+					start: "top 80%",
+					end: "bottom 80%",
+					toggleActions: "play none none reverse"
+				}
+			});
+
+			featureTl.from(".feature-heading", { opacity: 0, y: 50, duration: 0.8, ease: "power3.out" })
+					.from(".feature-description", { opacity: 0, y: 30, duration: 0.6, stagger: 0.2, ease: "power3.out" }, "-=0.4");
+		</script>
+	</body>
+</html>
