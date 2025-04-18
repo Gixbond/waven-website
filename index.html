@@ -361,123 +361,118 @@
 
 			@media (max-width: 768px) {
 				.nav {
-					padding: 1rem 1.5rem; /* Noch weniger Padding */
-					align-items: center; /* Align items vertically */
-					background: var(--primary-blue); /* Solider Hintergrund für Lesbarkeit */
+					padding: 1rem 1.5rem;
+					background: var(--primary-blue);
 					backdrop-filter: none;
-				 }
+				}
 
-				/* Hide desktop links, show burger */
 				.nav-links {
-					 display: none;
+					display: none;
 				}
+
 				.nav-burger {
-					 display: block; /* Show burger on mobile */
+					display: block;
 				}
+
 				.mobile-nav-links {
-					display: flex; /* Enable flex for mobile menu */
+					display: flex;
 				}
 
 				.hero-content {
-					 padding: 0 1rem; /* Weniger seitliches Padding */
-					 margin-top: -5vh; /* Logo etwas höher */
-				 }
+					padding: 0 1rem;
+					margin-top: -5vh;
+				}
 
-				 .hero-logo {
-					 height: 80px; /* Kleineres Logo */
-				 }
+				.hero-logo {
+					height: 80px;
+				}
 
-				 .hero-subtitle {
-					 font-size: clamp(1rem, 4vw, 1.5rem); /* Kleinere Untertitel */
-					 margin-top: 1rem;
-					 letter-spacing: 0.2em;
-				 }
+				.hero-subtitle {
+					font-size: clamp(1rem, 4vw, 1.5rem);
+					margin-top: 1rem;
+					letter-spacing: 0.2em;
+				}
 
-				 .vision-section .container,
-				 .feature-section .feature-container,
-				 .market-section .container {
-					 padding: 4rem 1rem; /* Weniger Padding in Sections */
-				 }
+				.vision-section .container,
+				.feature-section .feature-container,
+				.market-section .container {
+					padding: 4rem 1rem;
+				}
 
-				 .vision-content {
-					 flex-direction: column; /* Text über Bild */
-					 align-items: center;
-					 text-align: center;
-				 }
-				 .vision-text, .vision-image-container {
-					 width: 90%; /* Fast volle Breite */
-					 height: auto; /* Let height adjust based on content/aspect ratio */
-					 max-height: 60vh; /* Limit max height */
-					 margin-bottom: 2rem;
-				 }
-				 .vision-image,
-				 .feature-image {
-					 max-width: 100%;
-					 height: auto; /* Ensure image scales correctly */
-					 object-fit: cover; /* Or contain, depending on desired effect */
-				 }
+				.vision-content {
+					flex-direction: column;
+					align-items: center;
+					text-align: center;
+				}
+				.vision-text, .vision-image-container {
+					width: 90%;
+					height: auto;
+					max-height: 60vh;
+					margin-bottom: 2rem;
+				}
+				.vision-image,
+				.feature-image {
+					max-width: 100%;
+					height: auto;
+					object-fit: cover;
+				}
 
 				.feature-heading {
-					 font-size: 1.8rem; /* Kleinere Überschriften */
-				 }
-				 .feature-description p {
-					 font-size: 0.95rem; /* Leicht kleinere Beschreibung */
-				 }
-				 .feature-text, .feature-image-container {
-					width: 90%; /* Fast volle Breite */
-				 }
+					font-size: 1.8rem;
+				}
+				.feature-description p {
+					font-size: 0.95rem;
+				}
+				.feature-text, .feature-image-container {
+					width: 90%;
+				}
 
-				 /* Table adjustments */
-				 .market-table table,
-				 .property-table, /* Target the specific table */
-				 .costs-table /* Target the operating costs table */
-				 {
-					 display: block; /* Make table behave like a block for overflow */
-					 width: 100%;
-					 overflow-x: auto; /* Enable horizontal scrolling */
-					 -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-					 border-collapse: collapse; /* Ensure borders work with block display */
-					 white-space: nowrap; /* Prevent text wrapping within cells */
-					 font-size: 0.85rem; /* Noch kleinere Schrift in Tabelle */
-				 }
-				 .market-table th,
-				 .market-table td,
-				 .property-table th,
-				 .property-table td,
-				 .costs-table th,
-				 .costs-table td
-				 {
-					 padding: 0.6rem 0.8rem; /* Adjust padding */
-					 white-space: nowrap; /* Ensure headers don't wrap */
-				 }
+				.market-table table,
+				.property-table,
+				.costs-table {
+					display: block;
+					width: 100%;
+					overflow-x: auto;
+					-webkit-overflow-scrolling: touch;
+					border-collapse: collapse;
+					white-space: nowrap;
+					font-size: 0.85rem;
+				}
+				.market-table th,
+				.market-table td,
+				.property-table th,
+				.property-table td,
+				.costs-table th,
+				.costs-table td {
+					padding: 0.6rem 0.8rem;
+					white-space: nowrap;
+				}
 
-				 /* Bar chart adjustments */
-				 .bar-chart {
+				.bar-chart {
 					padding: 1.5rem 1rem;
-				 }
-				 .bar-chart h3 {
-					 font-size: 1rem;
-					 margin-bottom: 1.5rem;
-				 }
-				 .bar-row {
-					 margin-bottom: 1rem;
-				 }
-				 .bar-label {
-					 font-size: 0.8rem;
-					 margin-bottom: 0.3rem;
-				 }
-				 .bar-container {
-					 height: 25px; /* Dünnere Balken */
-				 }
-				 .bar-price {
-					 font-size: 0.75rem;
-					 right: 10px; /* Preis näher am Balkenende */
-					 padding-right: 0; /* Kein extra Padding in der Bar nötig */
-				 }
-				 .bar {
-					 padding-right: 60px; /* Weniger Platz für den Preis */
-				 }
-
+				}
+				.bar-chart h3 {
+					font-size: 1rem;
+					margin-bottom: 1.5rem;
+				}
+				.bar-row {
+					margin-bottom: 1rem;
+				}
+				.bar-label {
+					font-size: 0.8rem;
+					margin-bottom: 0.3rem;
+				}
+				.bar-container {
+					height: 25px;
+				}
+				.bar-price {
+					font-size: 0.75rem;
+					right: 10px;
+					padding-right: 0;
+				}
+				.bar {
+					padding-right: 60px;
+				}
 			}
 
 			/* Add styles for the burger menu */
@@ -509,6 +504,8 @@
 				padding: 80px 2rem 2rem;
 				z-index: 999;
 				transition: left 0.3s ease;
+				flex-direction: column;
+				gap: 1rem;
 			}
 
 			.mobile-nav-links.active {
