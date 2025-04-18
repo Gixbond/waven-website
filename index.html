@@ -51,6 +51,8 @@
 			.nav-container {
 				display: flex;
 				align-items: center;
+				justify-content: space-between;
+				width: 100%;
 			}
 
 			.nav-logo {
@@ -333,6 +335,211 @@
 				letter-spacing: 0.1em;
 				text-transform: uppercase;
 			}
+
+			/* ------------- Responsive Design Anpassungen ------------- */
+
+			@media (max-width: 1024px) {
+				.nav {
+					padding: 1.5rem 2rem; /* Weniger Padding für kleinere Desktops */
+				}
+				.nav-links {
+					gap: 2rem; /* Weniger Abstand zwischen Links */
+				}
+				.feature-content {
+					flex-direction: column; /* Text über Bild auf Tablets */
+					align-items: center;
+					text-align: center;
+				}
+				.feature-text, .feature-image-container {
+					width: 80%; /* Breiter auf Tablets */
+					margin-bottom: 2rem;
+				}
+				.market-table table {
+					 font-size: 0.9rem; /* Kleinere Schrift in Tabelle */
+				}
+			}
+
+			@media (max-width: 768px) {
+				.nav {
+					padding: 1rem 1.5rem; /* Noch weniger Padding */
+					align-items: center; /* Align items vertically */
+					background: var(--primary-blue); /* Solider Hintergrund für Lesbarkeit */
+					backdrop-filter: none;
+				 }
+
+				/* Hide desktop links, show burger */
+				.nav-links {
+					 display: none;
+				}
+				.nav-burger {
+					 display: block; /* Show burger on mobile */
+				}
+				.mobile-nav-links {
+					display: flex; /* Enable flex for mobile menu */
+				}
+
+				.hero-content {
+					 padding: 0 1rem; /* Weniger seitliches Padding */
+					 margin-top: -5vh; /* Logo etwas höher */
+				 }
+
+				 .hero-logo {
+					 height: 80px; /* Kleineres Logo */
+				 }
+
+				 .hero-subtitle {
+					 font-size: clamp(1rem, 4vw, 1.5rem); /* Kleinere Untertitel */
+					 margin-top: 1rem;
+					 letter-spacing: 0.2em;
+				 }
+
+				 .vision-section .container,
+				 .feature-section .feature-container,
+				 .market-section .container {
+					 padding: 4rem 1rem; /* Weniger Padding in Sections */
+				 }
+
+				 .vision-content {
+					 flex-direction: column; /* Text über Bild */
+					 align-items: center;
+					 text-align: center;
+				 }
+				 .vision-text, .vision-image-container {
+					 width: 90%; /* Fast volle Breite */
+					 height: auto; /* Let height adjust based on content/aspect ratio */
+					 max-height: 60vh; /* Limit max height */
+					 margin-bottom: 2rem;
+				 }
+				 .vision-image,
+				 .feature-image {
+					 max-width: 100%;
+					 height: auto; /* Ensure image scales correctly */
+					 object-fit: cover; /* Or contain, depending on desired effect */
+				 }
+
+				.feature-heading {
+					 font-size: 1.8rem; /* Kleinere Überschriften */
+				 }
+				 .feature-description p {
+					 font-size: 0.95rem; /* Leicht kleinere Beschreibung */
+				 }
+				 .feature-text, .feature-image-container {
+					width: 90%; /* Fast volle Breite */
+				 }
+
+				 /* Table adjustments */
+				 .market-table table,
+				 .property-table, /* Target the specific table */
+				 .costs-table /* Target the operating costs table */
+				 {
+					 display: block; /* Make table behave like a block for overflow */
+					 width: 100%;
+					 overflow-x: auto; /* Enable horizontal scrolling */
+					 -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+					 border-collapse: collapse; /* Ensure borders work with block display */
+					 white-space: nowrap; /* Prevent text wrapping within cells */
+					 font-size: 0.85rem; /* Noch kleinere Schrift in Tabelle */
+				 }
+				 .market-table th,
+				 .market-table td,
+				 .property-table th,
+				 .property-table td,
+				 .costs-table th,
+				 .costs-table td
+				 {
+					 padding: 0.6rem 0.8rem; /* Adjust padding */
+					 white-space: nowrap; /* Ensure headers don't wrap */
+				 }
+
+				 /* Bar chart adjustments */
+				 .bar-chart {
+					padding: 1.5rem 1rem;
+				 }
+				 .bar-chart h3 {
+					 font-size: 1rem;
+					 margin-bottom: 1.5rem;
+				 }
+				 .bar-row {
+					 margin-bottom: 1rem;
+				 }
+				 .bar-label {
+					 font-size: 0.8rem;
+					 margin-bottom: 0.3rem;
+				 }
+				 .bar-container {
+					 height: 25px; /* Dünnere Balken */
+				 }
+				 .bar-price {
+					 font-size: 0.75rem;
+					 right: 10px; /* Preis näher am Balkenende */
+					 padding-right: 0; /* Kein extra Padding in der Bar nötig */
+				 }
+				 .bar {
+					 padding-right: 60px; /* Weniger Platz für den Preis */
+				 }
+
+			}
+
+			/* Add styles for the burger menu */
+			.nav-burger {
+				display: none; /* Hidden by default */
+				cursor: pointer;
+				padding: 10px;
+			}
+			.nav-burger div {
+				width: 25px;
+				height: 2px;
+				background-color: var(--text-light);
+				margin: 5px 0;
+				transition: all 0.3s ease;
+			}
+
+			/* Styles for the mobile navigation links container */
+			.mobile-nav-links {
+				display: none; /* Hidden by default */
+				position: fixed;
+				top: 0;
+				left: -100%; /* Start off-screen */
+				width: 80%;
+				max-width: 300px;
+				height: 100%;
+				background-color: var(--dark-blue);
+				padding: 6rem 2rem 2rem 2rem;
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 1.5rem;
+				z-index: 150; /* Above nav bar */
+				transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+				box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+			}
+			.mobile-nav-links.active {
+				left: 0; /* Slide in */
+			}
+			.mobile-nav-links .nav-link {
+				font-size: 1.1rem;
+				width: 100%;
+				padding-bottom: 0.5rem;
+				border-bottom: 1px solid rgba(45, 118, 136, 0.3);
+			}
+			.mobile-nav-links .nav-link::after {
+				display: none; /* Hide underline effect */
+			}
+
+			/* Style for the overlay behind mobile menu */
+			.mobile-nav-overlay {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,0.5);
+				z-index: 140; /* Below menu, above content */
+			}
+			.mobile-nav-overlay.active {
+				display: block;
+			}
+
 		</style>
 		<!-- GSAP & ScrollTrigger Scripts -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -344,8 +551,25 @@
 				<a href="#top" class="nav-logo">
 					<img src="images/waven-logo.svg" alt="WAVEN Logo" style="height: 40px;">
 				</a>
+				<!-- Add Burger Icon -->
+				<div class="nav-burger">
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
 			</div>
 			<div class="nav-links">
+				<a href="#vision" class="nav-link">Vision</a>
+				<a href="#luxus" class="nav-link">Regionale Entwicklung</a>
+				<a href="#grundstueckmarkt" class="nav-link">Grundstückmarkt</a>
+				<a href="#zielgruppen" class="nav-link">Zielgruppen</a>
+				<a href="#betriebskosten" class="nav-link">Betriebskosten</a>
+				<a href="#finanzmodell" class="nav-link">Finanzmodell</a>
+				<a href="#investment" class="nav-link">Investment</a>
+			</div>
+			<!-- Add Mobile Nav Links Container and Overlay -->
+			<div class="mobile-nav-overlay"></div>
+			<div class="mobile-nav-links">
 				<a href="#vision" class="nav-link">Vision</a>
 				<a href="#luxus" class="nav-link">Regionale Entwicklung</a>
 				<a href="#grundstueckmarkt" class="nav-link">Grundstückmarkt</a>
@@ -416,7 +640,7 @@
 					<p class="vision-text" style="color: var(--text-light);">
 						Die Preise für Baugrund in der Region haben sich seit 2021 deutlich verteuert. Das betrifft vor allem Kuta, aber auch zunehmend Are Guling, Gerupuk und Selong Belanak.
 					</p>
-					<div style="margin: 2rem 0; overflow-x: auto;">
+					<div style="margin: 2rem 0; overflow-x: auto;" class="market-table">
 						<table style="width: 100%; border-collapse: collapse; color: var(--text-light);" class="property-table">
 							<thead>
 								<tr>
@@ -462,7 +686,7 @@
 							</tbody>
 						</table>
 					</div>
-					<div style="margin: 4rem 0; padding: 2rem; background-color: rgba(45, 118, 136, 0.1); border-radius: 12px;">
+					<div style="margin: 4rem 0; padding: 2rem; background-color: rgba(45, 118, 136, 0.1); border-radius: 12px;" class="bar-chart">
 						<h3 style="font-size: 1.5rem; font-weight: 300; margin-bottom: 2rem; letter-spacing: 0.1em; text-transform: uppercase;">PREISVERGLEICH NACH REGION (USD/m²)</h3>
 						<div style="display: flex; flex-direction: column; gap: 1.5rem;">
 							<div style="display: flex; align-items: center; gap: 1rem;">
@@ -531,7 +755,7 @@
 					<p class="vision-text" style="color: var(--text-light);">
 						Für eine voll ausgestattete Villa dieser Größe sind folgende Personalkosten üblich:
 					</p>
-					<div style="margin: 4rem 0; padding: 2rem; background-color: rgba(45, 118, 136, 0.1); border-radius: 12px;">
+					<div style="margin: 4rem 0; padding: 2rem; background-color: rgba(45, 118, 136, 0.1); border-radius: 12px;" class="costs-table">
 						<h3 style="font-size: 1.5rem; font-weight: 300; margin-bottom: 2rem; letter-spacing: 0.1em; text-transform: uppercase;">MONATLICHE PERSONALKOSTEN</h3>
 						<div style="display: flex; flex-direction: column; gap: 1.5rem;">
 							<div style="display: flex; align-items: center; gap: 1rem;">
@@ -588,8 +812,8 @@
 					<p class="vision-text">
 						Empfohlen wird der Start der Bauplanung 2025, Baubeginn 2026, Soft Opening Ende 2026. Die Kombination aus professioneller Struktur, persönlichem Netzwerk und attraktiver Lage bildet ein starkes Fundament für langfristigen Erfolg und Wertezuwachs.
 					</p>
+				</div>
 			</div>
-		</div>
 		</section>
 
 		<script>
@@ -648,6 +872,44 @@
 
 			featureTl.from(".feature-heading", { opacity: 0, y: 50, duration: 0.8, ease: "power3.out" })
 					.from(".feature-description", { opacity: 0, y: 30, duration: 0.6, stagger: 0.2, ease: "power3.out" }, "-=0.4");
+
+			// Hamburger Menu Functionality
+			const burger = document.querySelector('.nav-burger');
+			const mobileNav = document.querySelector('.mobile-nav-links');
+			const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
+			const mobileNavLinks = document.querySelectorAll('.mobile-nav-links .nav-link'); // Select links within mobile menu
+
+			burger.addEventListener('click', () => {
+				mobileNav.classList.toggle('active');
+				mobileNavOverlay.classList.toggle('active');
+				// Optional: Add class to body to prevent scrolling when menu is open
+				document.body.classList.toggle('no-scroll');
+			});
+
+			mobileNavOverlay.addEventListener('click', () => {
+				mobileNav.classList.remove('active');
+				mobileNavOverlay.classList.remove('active');
+				document.body.classList.remove('no-scroll');
+			});
+
+			// Close mobile menu when a link is clicked
+			mobileNavLinks.forEach(link => {
+				link.addEventListener('click', () => {
+					mobileNav.classList.remove('active');
+					mobileNavOverlay.classList.remove('active');
+					document.body.classList.remove('no-scroll');
+					// Smooth scroll to the target section (optional, if not handled by href="#...")
+					// const targetId = link.getAttribute('href');
+					// gsap.to(window, { duration: 1, scrollTo: targetId, ease: 'power2.inOut' });
+				});
+			});
+
+			// Optional: Add CSS for body.no-scroll if needed
+			/*
+			body.no-scroll {
+				overflow: hidden;
+			}
+			*/
 		</script>
 	</body>
 </html>
