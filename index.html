@@ -7,8 +7,6 @@
 		<!-- Elena Font einbinden (BITTE [Ihre-Kit-ID] ERSETZEN!) -->
 		<link rel="stylesheet" href="https://use.typekit.net/[Ihre-Kit-ID].css">
 		<style>
-			/* @font-face rules removed */
-
 			:root {
 				--primary-blue: #1B4B59;
 				--secondary-blue: #235E6F;
@@ -24,7 +22,7 @@
 				margin: 0;
 				padding: 0;
 				box-sizing: border-box;
-				font-family: 'elena', serif; /* Use Elena font */
+				font-family: 'elena', serif;
 				-webkit-font-smoothing: antialiased;
 			}
 
@@ -32,8 +30,12 @@
 				background-color: var(--primary-blue);
 				color: var(--text-light);
 				line-height: 1.6;
+				overflow-x: hidden;
+				width: 100%;
+				position: relative;
 			}
 
+			/* Navigation */
 			.nav {
 				position: fixed;
 				top: 0;
@@ -64,33 +66,38 @@
 			}
 
 			.nav-logo img {
-				height: 40px; /* Adjust height as needed */
+				height: 40px;
 				width: auto;
-				filter: brightness(0.1) invert(1); /* Make black parts slightly off-white */
-				transition: transform 0.3s ease; /* Add transition for smooth effect */
+				filter: brightness(0.1) invert(1);
+				transition: transform 0.6s ease;
 			}
 
 			.nav-logo img:hover {
-				transform: scale(1.1) translateY(-2px); /* Scale up and move slightly up on hover */
+				transform: scale(1.1) translateY(-2px);
 			}
 
-			.nav-links {
-				display: flex;
-				gap: 4rem;
+			.nav-menu {
+				position: relative;
+				display: inline-block;
+				margin-right: 2rem;
 			}
 
-			.nav-link {
+			.nav-menu-button {
+				background: none;
+				border: none;
 				color: var(--text-light);
-				text-decoration: none;
+				font-family: 'elena', serif;
+				font-size: 0.9rem;
 				font-weight: 300;
 				letter-spacing: 0.2em;
 				text-transform: uppercase;
-				font-size: 0.9rem;
-				position: relative;
+				padding: 0.5rem 1rem;
+				cursor: pointer;
 				transition: color 0.3s ease;
+				position: relative;
 			}
 
-			.nav-link::after {
+			.nav-menu-button::after {
 				content: '';
 				position: absolute;
 				bottom: -4px;
@@ -101,14 +108,167 @@
 				transition: width 0.3s ease;
 			}
 
-			.nav-link:hover {
-				color: var(--light-blue);
-			}
-
-			.nav-link:hover::after {
+			.nav-menu-button:hover::after {
 				width: 100%;
 			}
 
+			.nav-dropdown {
+				position: absolute;
+				top: 100%;
+				right: 0;
+				background: rgba(27, 75, 89, 0.95);
+				backdrop-filter: blur(8px);
+				padding: 1.5rem;
+				display: none;
+				flex-direction: column;
+				gap: 1.5rem;
+				min-width: 250px;
+				z-index: 1000;
+				margin-top: 0.5rem;
+				border-radius: 4px;
+				overflow: hidden;
+			}
+
+			.nav-dropdown.active {
+				display: flex;
+			}
+
+			.nav-dropdown .nav-link {
+				color: var(--text-light);
+				text-decoration: none;
+				font-weight: 300;
+				letter-spacing: 0.2em;
+				text-transform: uppercase;
+				font-size: 0.9rem;
+				padding: 0.75rem 1rem;
+				transition: all 0.3s ease;
+				opacity: 0;
+				transform: translateY(-10px);
+				position: relative;
+				display: block;
+				width: 100%;
+			}
+
+			.nav-dropdown .nav-link::after {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: 1rem;
+				width: calc(100% - 2rem);
+				height: 1px;
+				background-color: rgba(255, 255, 255, 0.2);
+				transition: all 0.3s ease;
+			}
+
+			.nav-dropdown .nav-link:hover {
+				background: rgba(255, 255, 255, 0.1);
+				padding-left: 1.25rem;
+			}
+
+			.nav-dropdown .nav-link:hover::after {
+				background-color: var(--light-blue);
+				width: calc(100% - 2.5rem);
+			}
+
+			.nav-dropdown.active .nav-link {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* Mobile Navigation */
+			@media (max-width: 768px) {
+				.nav-menu {
+					display: none;
+				}
+				
+				.nav-burger {
+					display: block;
+					width: 30px;
+					height: 24px;
+					position: relative;
+					z-index: 1000;
+					cursor: pointer;
+				}
+				
+				.nav-burger div {
+					position: absolute;
+					width: 100%;
+					height: 2px;
+					background-color: var(--text-light);
+					transition: all 0.3s ease;
+				}
+				
+				.nav-burger div:nth-child(1) { top: 0; }
+				.nav-burger div:nth-child(2) { top: 10px; }
+				.nav-burger div:nth-child(3) { top: 20px; }
+				
+				.nav-burger.active div:nth-child(1) {
+					transform: rotate(45deg) translate(8px, 8px);
+				}
+				
+				.nav-burger.active div:nth-child(2) {
+					opacity: 0;
+				}
+				
+				.nav-burger.active div:nth-child(3) {
+					transform: rotate(-45deg) translate(7px, -7px);
+				}
+				
+				.mobile-nav-links {
+					display: none;
+					position: fixed;
+					top: 0;
+					right: -100%;
+					width: 100%;
+					height: 100vh;
+					background-color: rgba(27, 75, 89, 0.98);
+					padding: 80px 2rem 2rem;
+					z-index: 999;
+					transition: right 0.3s ease;
+					backdrop-filter: blur(20px);
+				}
+				
+				.mobile-nav-links.active {
+					right: 0;
+					display: flex;
+					flex-direction: column;
+					gap: 2rem;
+				}
+				
+				.mobile-nav-overlay {
+					display: none;
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					background: rgba(0, 0, 0, 0.5);
+					z-index: 998;
+				}
+				
+				.mobile-nav-overlay.active {
+					display: block;
+				}
+				
+				.mobile-nav-links .nav-link {
+					color: var(--text-light);
+					text-decoration: none;
+					font-weight: 300;
+					letter-spacing: 0.2em;
+					text-transform: uppercase;
+					font-size: 1.1rem;
+					padding: 1rem 0;
+					border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+					transition: all 0.3s ease;
+				}
+				
+				.mobile-nav-links .nav-link:hover {
+					background: rgba(255, 255, 255, 0.1);
+					padding-left: 0.5rem;
+				}
+			}
+
+			/* Hero Section */
 			.hero {
 				height: 100vh;
 				width: 100%;
@@ -153,17 +313,6 @@
 				transform: scale(1.05) translateY(-5px);
 			}
 
-			.hero-title {
-				font-size: clamp(3rem, 12vw, 7rem);
-				font-weight: 300;
-				letter-spacing: 0.5em;
-				text-transform: uppercase;
-				margin-right: -0.5em;
-				line-height: 1.2;
-				opacity: 0;
-				animation: fadeIn 1s ease-out forwards 0.5s;
-			}
-
 			.hero-subtitle {
 				font-size: clamp(1.5rem, 2.5vw, 2.2rem);
 				font-weight: 300;
@@ -175,47 +324,7 @@
 				text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 			}
 
-			.scroll-indicator {
-				position: absolute;
-				bottom: 2rem;
-				left: 50%;
-				transform: translateX(-50%);
-				color: var(--text-light);
-				font-size: 0.8rem;
-				letter-spacing: 0.3em;
-				text-transform: uppercase;
-				opacity: 0;
-				animation: fadeInUp 1s ease-out forwards 1.5s;
-			}
-
-			@keyframes fadeIn {
-				from { opacity: 0; transform: translateY(20px); }
-				to { opacity: 1; transform: translateY(0); }
-			}
-
-			@keyframes fadeInUp {
-				from { opacity: 0; transform: translate(-50%, 20px); }
-				to { opacity: 1; transform: translate(-50%, 0); }
-			}
-
-			.overlay {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				background: linear-gradient(
-					to bottom,
-					rgba(27, 75, 89, 0.4) 0%,
-					rgba(27, 75, 89, 0.1) 40%,
-					rgba(27, 75, 89, 0.1) 60%,
-					rgba(27, 75, 89, 0.4) 100%
-				);
-				z-index: 1;
-				pointer-events: none;
-			}
-
-			/* Vision Section Styles */
+			/* Vision Section */
 			.vision {
 				min-height: 100vh;
 				padding: 8rem 2rem;
@@ -270,7 +379,7 @@
 				overflow: hidden;
 			}
 
-			/* Apple-style sections */
+			/* Feature Section */
 			.feature-section {
 				height: 100vh;
 				position: relative;
@@ -327,35 +436,51 @@
 				opacity: 1;
 			}
 
-			/* Add new style for section subtitles */
-			.section-subtitle {
-				font-size: 1.2rem;
-				font-weight: 300;
-				margin-bottom: 2rem;
-				letter-spacing: 0.1em;
-				text-transform: uppercase;
+			/* Hide burger menu on desktop */
+			@media (min-width: 769px) {
+				.nav-burger,
+				.mobile-nav-links,
+				.mobile-nav-overlay {
+					display: none;
+				}
 			}
 
-			/* ------------- Responsive Design Anpassungen ------------- */
+			/* Tablet Styles (if needed) */
+			@media (min-width: 769px) and (max-width: 1024px) {
+				.nav {
+					padding: 1.5rem 2rem;
+				}
+				
+				.vision-container,
+				.feature-container {
+					padding: 0 2rem;
+					gap: 2rem;
+				}
+				
+				.hero-logo {
+					height: 80px;
+				}
+			}
 
+			/* Mobile Styles */
 			@media (max-width: 1024px) {
 				.nav {
-					padding: 1.5rem 2rem; /* Weniger Padding für kleinere Desktops */
+					padding: 1.5rem 2rem;
 				}
 				.nav-links {
-					gap: 2rem; /* Weniger Abstand zwischen Links */
+					gap: 2rem;
 				}
 				.feature-content {
-					flex-direction: column; /* Text über Bild auf Tablets */
+					flex-direction: column;
 					align-items: center;
 					text-align: center;
 				}
 				.feature-text, .feature-image-container {
-					width: 80%; /* Breiter auf Tablets */
+					width: 80%;
 					margin-bottom: 2rem;
 				}
 				.market-table table {
-					 font-size: 0.9rem; /* Kleinere Schrift in Tabelle */
+					font-size: 0.9rem;
 				}
 			}
 
@@ -404,12 +529,14 @@
 					align-items: center;
 					text-align: center;
 				}
+				
 				.vision-text, .vision-image-container {
 					width: 90%;
 					height: auto;
 					max-height: 60vh;
 					margin-bottom: 2rem;
 				}
+				
 				.vision-image,
 				.feature-image {
 					max-width: 100%;
@@ -420,58 +547,13 @@
 				.feature-heading {
 					font-size: 1.8rem;
 				}
+				
 				.feature-description p {
 					font-size: 0.95rem;
 				}
+				
 				.feature-text, .feature-image-container {
 					width: 90%;
-				}
-
-				.market-table table,
-				.property-table,
-				.costs-table {
-					display: block;
-					width: 100%;
-					overflow-x: auto;
-					-webkit-overflow-scrolling: touch;
-					border-collapse: collapse;
-					white-space: nowrap;
-					font-size: 0.85rem;
-				}
-				.market-table th,
-				.market-table td,
-				.property-table th,
-				.property-table td,
-				.costs-table th,
-				.costs-table td {
-					padding: 0.6rem 0.8rem;
-					white-space: nowrap;
-				}
-
-				.bar-chart {
-					padding: 1.5rem 1rem;
-				}
-				.bar-chart h3 {
-					font-size: 1rem;
-					margin-bottom: 1.5rem;
-				}
-				.bar-row {
-					margin-bottom: 1rem;
-				}
-				.bar-label {
-					font-size: 0.8rem;
-					margin-bottom: 0.3rem;
-				}
-				.bar-container {
-					height: 25px;
-				}
-				.bar-price {
-					font-size: 0.75rem;
-					right: 10px;
-					padding-right: 0;
-				}
-				.bar {
-					padding-right: 60px;
 				}
 			}
 
@@ -538,27 +620,31 @@
 		<!-- GSAP & ScrollTrigger Scripts -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 	</head>
 	<body>
 		<nav class="nav">
 			<div class="nav-container">
 				<a href="#top" class="nav-logo">
-					<img src="images/waven-logo.svg" alt="WAVEN Logo" style="height: 40px;">
+					<img src="images/waven-logo.svg" alt="WAVEN Logo">
 				</a>
+				<div class="nav-menu">
+					<button class="nav-menu-button">Menü</button>
+					<div class="nav-dropdown">
+						<a href="#vision" class="nav-link">Vision</a>
+						<a href="#luxus" class="nav-link">Regionale Entwicklung</a>
+						<a href="#grundstueckmarkt" class="nav-link">Grundstückmarkt</a>
+						<a href="#zielgruppen" class="nav-link">Zielgruppen</a>
+						<a href="#betriebskosten" class="nav-link">Betriebskosten</a>
+						<a href="#finanzmodell" class="nav-link">Finanzmodell</a>
+						<a href="#investment" class="nav-link">Investment</a>
+					</div>
+				</div>
 				<div class="nav-burger">
 					<div></div>
 					<div></div>
 					<div></div>
 				</div>
-			</div>
-			<div class="nav-links">
-				<a href="#vision" class="nav-link">Vision</a>
-				<a href="#luxus" class="nav-link">Regionale Entwicklung</a>
-				<a href="#grundstueckmarkt" class="nav-link">Grundstückmarkt</a>
-				<a href="#zielgruppen" class="nav-link">Zielgruppen</a>
-				<a href="#betriebskosten" class="nav-link">Betriebskosten</a>
-				<a href="#finanzmodell" class="nav-link">Finanzmodell</a>
-				<a href="#investment" class="nav-link">Investment</a>
 			</div>
 			<div class="mobile-nav-overlay"></div>
 			<div class="mobile-nav-links">
@@ -643,35 +729,35 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr style="transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.backgroundColor='rgba(45, 118, 136, 0.2)'" onmouseout="this.style.backgroundColor='transparent'">
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">Kuta Lombok</td>
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">150–350</td>
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">240–500 Mio</td>
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue);">
+								<tr style="transition: all 0.3s ease;">
+									<td data-label="Region" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">Kuta Lombok</td>
+									<td data-label="Preis (USD/m²)" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">150–350</td>
+									<td data-label="IDR/Areal" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">240–500 Mio</td>
+									<td data-label="Entwicklung" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue);">
 										<span style="background-color: rgba(45, 118, 136, 0.2); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 300;">Hoch</span>
 									</td>
 								</tr>
-								<tr style="transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.backgroundColor='rgba(45, 118, 136, 0.2)'" onmouseout="this.style.backgroundColor='transparent'">
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">Are Guling</td>
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">80–200</td>
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">128–320 Mio</td>
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue);">
+								<tr style="transition: all 0.3s ease;">
+									<td data-label="Region" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">Are Guling</td>
+									<td data-label="Preis (USD/m²)" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">80–200</td>
+									<td data-label="IDR/Areal" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">128–320 Mio</td>
+									<td data-label="Entwicklung" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue);">
 										<span style="background-color: rgba(45, 118, 136, 0.2); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 300;">Steigend</span>
 									</td>
 								</tr>
-								<tr style="transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.backgroundColor='rgba(45, 118, 136, 0.2)'" onmouseout="this.style.backgroundColor='transparent'">
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">Selong Belanak</td>
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">60–200</td>
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">90–320 Mio</td>
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue);">
+								<tr style="transition: all 0.3s ease;">
+									<td data-label="Region" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">Selong Belanak</td>
+									<td data-label="Preis (USD/m²)" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">60–200</td>
+									<td data-label="IDR/Areal" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">90–320 Mio</td>
+									<td data-label="Entwicklung" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue);">
 										<span style="background-color: rgba(45, 118, 136, 0.2); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 300;">Premium</span>
 									</td>
 								</tr>
-								<tr style="transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.backgroundColor='rgba(45, 118, 136, 0.2)'" onmouseout="this.style.backgroundColor='transparent'">
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">Gerupuk</td>
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">70–150</td>
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">112–240 Mio</td>
-									<td style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue);">
+								<tr style="transition: all 0.3s ease;">
+									<td data-label="Region" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">Gerupuk</td>
+									<td data-label="Preis (USD/m²)" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">70–150</td>
+									<td data-label="IDR/Areal" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue); font-weight: 300;">112–240 Mio</td>
+									<td data-label="Entwicklung" style="padding: 1.5rem; border-bottom: 1px solid var(--light-blue);">
 										<span style="background-color: rgba(45, 118, 136, 0.2); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 300;">Wachsend</span>
 									</td>
 								</tr>
@@ -804,13 +890,13 @@
 					<p class="vision-text">
 						Empfohlen wird der Start der Bauplanung 2025, Baubeginn 2026, Soft Opening Ende 2026. Die Kombination aus professioneller Struktur, persönlichem Netzwerk und attraktiver Lage bildet ein starkes Fundament für langfristigen Erfolg und Wertezuwachs.
 					</p>
-				</div>
 			</div>
+		</div>
 		</section>
 
 		<script>
-			// Register ScrollTrigger Plugin
-			gsap.registerPlugin(ScrollTrigger);
+			// Register GSAP Plugins
+			gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 			// Smooth scroll initialization
 			gsap.config({
@@ -865,31 +951,127 @@
 			featureTl.from(".feature-heading", { opacity: 0, y: 50, duration: 0.8, ease: "power3.out" })
 					.from(".feature-description", { opacity: 0, y: 30, duration: 0.6, stagger: 0.2, ease: "power3.out" }, "-=0.4");
 
-			// Add this at the end of your script
+			// Dropdown menu functionality
 			document.addEventListener('DOMContentLoaded', function() {
+				const menuButton = document.querySelector('.nav-menu-button');
+				const dropdown = document.querySelector('.nav-dropdown');
+				const dropdownLinks = document.querySelectorAll('.nav-dropdown .nav-link');
+
+				menuButton.addEventListener('click', function() {
+					dropdown.classList.toggle('active');
+					
+					if (dropdown.classList.contains('active')) {
+						// Animate links in
+						dropdownLinks.forEach((link, index) => {
+							setTimeout(() => {
+								link.style.opacity = '1';
+								link.style.transform = 'translateY(0)';
+							}, index * 50);
+						});
+					} else {
+						// Animate links out
+						dropdownLinks.forEach((link, index) => {
+							setTimeout(() => {
+								link.style.opacity = '0';
+								link.style.transform = 'translateY(-10px)';
+							}, index * 50);
+						});
+					}
+				});
+
+				// Close dropdown when clicking outside
+				document.addEventListener('click', function(event) {
+					if (!event.target.closest('.nav-menu')) {
+						dropdown.classList.remove('active');
+						dropdownLinks.forEach((link, index) => {
+							setTimeout(() => {
+								link.style.opacity = '0';
+								link.style.transform = 'translateY(-10px)';
+							}, index * 50);
+						});
+					}
+				});
+
+				// Add click handlers for all links
+				dropdownLinks.forEach(link => {
+					link.addEventListener('click', function() {
+						dropdown.classList.remove('active');
+						dropdownLinks.forEach((link, index) => {
+							setTimeout(() => {
+								link.style.opacity = '0';
+								link.style.transform = 'translateY(-10px)';
+							}, index * 50);
+						});
+					});
+				});
+
+				// Mobile navigation
 				const burger = document.querySelector('.nav-burger');
 				const mobileNav = document.querySelector('.mobile-nav-links');
 				const overlay = document.querySelector('.mobile-nav-overlay');
 				const mobileLinks = document.querySelectorAll('.mobile-nav-links .nav-link');
 
-				burger.addEventListener('click', () => {
+				function toggleMenu() {
+					burger.classList.toggle('active');
 					mobileNav.classList.toggle('active');
 					overlay.classList.toggle('active');
 					document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
-				});
 
-				overlay.addEventListener('click', () => {
-					mobileNav.classList.remove('active');
-					overlay.classList.remove('active');
-					document.body.style.overflow = '';
-				});
+					if (mobileNav.classList.contains('active')) {
+						gsap.from(mobileLinks, {
+							opacity: 0,
+							y: 20,
+							duration: 0.3,
+							stagger: 0.1,
+							ease: "power2.out",
+							onComplete: function() {
+								gsap.set(mobileLinks, { opacity: 1, y: 0 });
+							}
+						});
+					}
+				}
+
+				burger.addEventListener('click', toggleMenu);
+				overlay.addEventListener('click', toggleMenu);
 
 				mobileLinks.forEach(link => {
 					link.addEventListener('click', () => {
-						mobileNav.classList.remove('active');
-						overlay.classList.remove('active');
-						document.body.style.overflow = '';
+						toggleMenu();
+						const targetId = link.getAttribute('href');
+						const targetSection = document.querySelector(targetId);
+						if (targetSection) {
+							targetSection.scrollIntoView({ behavior: 'smooth' });
+						}
 					});
+				});
+
+				// Section animations
+				const sections = document.querySelectorAll('section');
+				sections.forEach(section => {
+					gsap.from(section, {
+						opacity: 0,
+						y: 50,
+						duration: 1,
+						scrollTrigger: {
+							trigger: section,
+							start: "top 80%",
+							end: "bottom 80%",
+							toggleActions: "play none none reverse"
+						}
+					});
+				});
+			});
+
+			// Smooth scroll to top when clicking logo
+			document.querySelector('.nav-logo').addEventListener('click', function(e) {
+				e.preventDefault();
+				gsap.to(window, {
+					duration: 1.2,
+					scrollTo: {
+						y: 0,
+						autoKill: false
+					},
+					ease: "power2.inOut"
 				});
 			});
 		</script>
