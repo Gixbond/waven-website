@@ -1,0 +1,159 @@
+/* Base styles and variables */
+:root {
+    --primary-blue: #1B4B59;
+    --secondary-blue: #235E6F;
+    --light-blue: #2D7688;
+    --dark-blue: #0F2F39;
+    --concrete: #D1D1D1;
+    --text-light: #FFFFFF;
+    --text-dark: #2C2C2C;
+    --overlay: rgba(27, 75, 89, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'elena', serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--primary-blue);
+    color: var(--text-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+}
+
+/* Base styles (Mobile First) - für alle Bildschirmgrößen */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(180deg, rgba(27, 75, 89, 0.98) 0%, rgba(27, 75, 89, 0.85) 100%);
+    backdrop-filter: blur(8px);
+}
+
+.nav-logo img {
+    height: 25px;
+    width: auto;
+    filter: brightness(0.1) invert(1);
+    transition: transform 0.6s ease;
+}
+
+.nav-menu {
+    display: none;
+}
+
+.nav-burger {
+    display: block;
+    width: 30px;
+    height: 24px;
+    position: relative;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.nav-burger div {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-light);
+    transition: all 0.3s ease;
+}
+
+.nav-burger div:nth-child(1) { top: 0; }
+.nav-burger div:nth-child(2) { top: 10px; }
+.nav-burger div:nth-child(3) { top: 20px; }
+
+.nav-burger.active div:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.nav-burger.active div:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-burger.active div:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Tablet Styles (768px and up) */
+@media screen and (min-width: 768px) {
+    .nav {
+        padding: 1.5rem 2rem;
+    }
+
+    .nav-logo img {
+        height: 30px;
+    }
+}
+
+/* Desktop Styles (1024px and up) */
+@media screen and (min-width: 1024px) {
+    .nav {
+        padding: 2rem 4rem;
+        background: linear-gradient(180deg, rgba(27, 75, 89, 0.95) 0%, rgba(27, 75, 89, 0) 100%);
+    }
+
+    .nav-logo img {
+        height: 40px;
+    }
+
+    .nav-burger {
+        display: none;
+    }
+
+    .nav-menu {
+        position: relative;
+        display: inline-block;
+        margin-right: 2rem;
+    }
+
+    .nav-menu-button {
+        background: none;
+        border: none;
+        color: var(--text-light);
+        font-family: 'elena', serif;
+        font-size: 0.9rem;
+        font-weight: 300;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        position: relative;
+    }
+
+    .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: rgba(27, 75, 89, 0.95);
+        backdrop-filter: blur(8px);
+        padding: 1.5rem;
+        display: none;
+        flex-direction: column;
+        gap: 1.5rem;
+        min-width: 250px;
+        z-index: 1000;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+}
+
+/* Large Desktop Styles (1200px and up) */
+@media screen and (min-width: 1200px) {
+    .nav {
+        padding: 2rem 6rem;
+    }
+} 

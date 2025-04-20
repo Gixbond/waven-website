@@ -27,7 +27,7 @@
 			}
 
 			body {
-				background-color: red;
+				background-color: var(--primary-blue);
 				color: var(--text-light);
 				line-height: 1.6;
 				overflow-x: hidden;
@@ -143,10 +143,8 @@
 				padding: 0.75rem 1rem;
 				transition: all 0.3s ease;
 				opacity: 0;
-				transform: translateY(-10px);
+				transform: translateY(-20px);
 				position: relative;
-				display: block;
-				width: 100%;
 			}
 
 			.nav-dropdown .nav-link::after {
@@ -168,11 +166,6 @@
 			.nav-dropdown .nav-link:hover::after {
 				background-color: var(--light-blue);
 				width: calc(100% - 2.5rem);
-			}
-
-			.nav-dropdown.active .nav-link {
-				opacity: 1;
-				transform: translateY(0);
 			}
 
 			/* Mobile Navigation */
@@ -288,7 +281,6 @@
 				height: 100%;
 				object-fit: cover;
 				filter: brightness(0.95) contrast(1.05);
-				z-index: 1;
 			}
 
 			.hero-content {
@@ -323,79 +315,6 @@
 				opacity: 1;
 				color: var(--text-light);
 				text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-			}
-
-			.scroll-indicator-container {
-				position: absolute;
-				bottom: 40px;
-				left: 0;
-				width: 100%;
-				z-index: 999;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				pointer-events: auto;
-			}
-
-			.scroll-indicator {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				gap: 15px;
-				cursor: pointer;
-				background-color: rgba(0, 0, 0, 0.5);
-				padding: 20px;
-				border-radius: 10px;
-			}
-
-			.scroll-indicator-text {
-				color: #FFFFFF;
-				font-size: 1.5rem;
-				font-weight: 300;
-				letter-spacing: 0.3em;
-				text-transform: uppercase;
-				text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-				padding: 10px 20px;
-			}
-
-			.scroll-indicator-arrow {
-				width: 40px;
-				height: 40px;
-				background-color: rgba(255, 255, 255, 0.2);
-				border-radius: 50%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				transition: all 0.3s ease;
-			}
-
-			.scroll-indicator-arrow svg {
-				width: 24px;
-				height: 24px;
-				animation: scrollIndicator 2s infinite;
-			}
-
-			@keyframes scrollIndicator {
-				0% {
-					transform: translateY(0);
-					opacity: 1;
-				}
-				50% {
-					transform: translateY(10px);
-					opacity: 0.8;
-				}
-				100% {
-					transform: translateY(0);
-					opacity: 1;
-				}
-			}
-
-			.scroll-indicator:hover {
-				background-color: rgba(0, 0, 0, 0.7);
-			}
-
-			.scroll-indicator:hover .scroll-indicator-arrow {
-				background-color: rgba(255, 255, 255, 0.3);
 			}
 
 			/* Vision Section */
@@ -690,18 +609,6 @@
 				display: block;
 			}
 
-			.test-circle {
-				position: fixed;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				width: 200px;
-				height: 200px;
-				background-color: red;
-				border-radius: 50%;
-				z-index: 1000;
-			}
-
 		</style>
 		<!-- GSAP & ScrollTrigger Scripts -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -753,17 +660,7 @@
 				<img src="images/waven-logo.svg" alt="Waven Logo" class="hero-logo">
 				<p class="hero-subtitle">Luxury in Nature</p>
 			</div>
-			<div class="scroll-indicator-container">
-				<div class="scroll-indicator">
-					<div class="scroll-indicator-text">Explore</div>
-					<div class="scroll-indicator-arrow">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M12 5v14M5 12l7 7 7-7"/>
-						</svg>
-					</div>
-				</div>
-			</div>
-			<div class="test-circle"></div>
+			<div class="scroll-indicator">Explore</div>
 		</section>
 
 		<section id="vision" class="vision">
@@ -1058,19 +955,24 @@
 					
 					if (dropdown.classList.contains('active')) {
 						// Animate links in
-						dropdownLinks.forEach((link, index) => {
-							setTimeout(() => {
-								link.style.opacity = '1';
-								link.style.transform = 'translateY(0)';
-							}, index * 50);
+						gsap.from(dropdownLinks, {
+							opacity: 0,
+							y: -20,
+							duration: 0.2,
+							stagger: 0.05,
+							ease: "power2.out",
+							onComplete: function() {
+								gsap.set(dropdownLinks, { opacity: 1, y: 0 });
+							}
 						});
 					} else {
 						// Animate links out
-						dropdownLinks.forEach((link, index) => {
-							setTimeout(() => {
-								link.style.opacity = '0';
-								link.style.transform = 'translateY(-10px)';
-							}, index * 50);
+						gsap.to(dropdownLinks, {
+							opacity: 0,
+							y: -20,
+							duration: 0.15,
+							stagger: 0.03,
+							ease: "power2.in"
 						});
 					}
 				});
@@ -1079,26 +981,14 @@
 				document.addEventListener('click', function(event) {
 					if (!event.target.closest('.nav-menu')) {
 						dropdown.classList.remove('active');
-						dropdownLinks.forEach((link, index) => {
-							setTimeout(() => {
-								link.style.opacity = '0';
-								link.style.transform = 'translateY(-10px)';
-							}, index * 50);
+						gsap.to(dropdownLinks, {
+							opacity: 0,
+							y: -20,
+							duration: 0.15,
+							stagger: 0.03,
+							ease: "power2.in"
 						});
 					}
-				});
-
-				// Add click handlers for all links
-				dropdownLinks.forEach(link => {
-					link.addEventListener('click', function() {
-						dropdown.classList.remove('active');
-						dropdownLinks.forEach((link, index) => {
-							setTimeout(() => {
-								link.style.opacity = '0';
-								link.style.transform = 'translateY(-10px)';
-							}, index * 50);
-						});
-					});
 				});
 
 				// Mobile navigation
@@ -1165,18 +1055,6 @@
 					duration: 1.2,
 					scrollTo: {
 						y: 0,
-						autoKill: false
-					},
-					ease: "power2.inOut"
-				});
-			});
-
-			// Scroll indicator functionality
-			document.querySelector('.scroll-indicator').addEventListener('click', function() {
-				gsap.to(window, {
-					duration: 1.2,
-					scrollTo: {
-						y: document.querySelector('#vision').offsetTop,
 						autoKill: false
 					},
 					ease: "power2.inOut"
