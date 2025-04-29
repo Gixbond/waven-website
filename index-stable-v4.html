@@ -16,6 +16,13 @@
 				--text-light: #FFFFFF;
 				--text-dark: #2C2C2C;
 				--overlay: rgba(27, 75, 89, 0.2);
+				--font-size-h1: clamp(2rem, 4vw, 3rem);
+				--font-size-h2: clamp(1.5rem, 2.5vw, 2.2rem);
+				--font-size-body: 1.1rem;
+				--font-size-small: 0.9rem;
+				--line-height-body: 1.6;
+				--line-height-small: 1.4;
+				--letter-spacing-heading: 0.1em;
 			}
 
 			* {
@@ -29,37 +36,11 @@
 			body {
 				background-color: var(--primary-blue);
 				color: var(--text-light);
-				line-height: 1.6;
+				line-height: var(--line-height-body);
 				overflow-x: hidden;
 				width: 100%;
 				position: relative;
-			}
-
-			/* Scroll Indicator */
-			.scroll-indicator {
-				position: absolute;
-				bottom: 2rem;
-				left: 50%;
-				transform: translateX(-50%);
-				color: var(--text-light);
-				font-size: 0.9rem;
-				letter-spacing: 0.2em;
-				text-transform: uppercase;
-				opacity: 0.8;
-				animation: bounce 2s infinite;
-				z-index: 10;
-			}
-
-			@keyframes bounce {
-				0%, 20%, 50%, 80%, 100% {
-					transform: translateX(-50%) translateY(0);
-				}
-				40% {
-					transform: translateX(-50%) translateY(-10px);
-				}
-				60% {
-					transform: translateX(-50%) translateY(-5px);
-				}
+				font-size: var(--font-size-body);
 			}
 
 			/* Navigation */
@@ -376,9 +357,9 @@
 			}
 
 			.vision-title {
-				font-size: clamp(2rem, 4vw, 3rem);
+				font-size: var(--font-size-h1);
 				font-weight: 300;
-				letter-spacing: 0.2em;
+				letter-spacing: var(--letter-spacing-heading);
 				color: var(--primary-blue);
 				margin-bottom: 2rem;
 				opacity: 1;
@@ -386,8 +367,8 @@
 			}
 
 			.vision-text {
-				font-size: 1.1rem;
-				line-height: 1.8;
+				font-size: var(--font-size-body);
+				line-height: var(--line-height-body);
 				color: var(--text-dark);
 				margin-bottom: 2rem;
 				opacity: 1;
@@ -428,17 +409,17 @@
 			}
 
 			.feature-heading {
-				font-size: clamp(2rem, 4vw, 3rem);
+				font-size: var(--font-size-h2);
 				font-weight: 300;
 				margin-bottom: 2rem;
 				opacity: 1;
 				text-transform: uppercase;
-				letter-spacing: 0.2em;
+				letter-spacing: var(--letter-spacing-heading);
 			}
 
 			.feature-description {
-				font-size: 1.1rem;
-				line-height: 1.8;
+				font-size: var(--font-size-body);
+				line-height: var(--line-height-body);
 				font-weight: 300;
 				opacity: 1;
 				letter-spacing: 0.02em;
@@ -643,6 +624,68 @@
 				display: block;
 			}
 
+			/* Überschriften */
+			h1, h2 {
+				font-size: var(--font-size-h1);
+				text-transform: uppercase;
+				letter-spacing: var(--letter-spacing-heading);
+				font-weight: 300;
+				margin-bottom: 1.5rem;
+			}
+
+			h3 {
+				font-size: var(--font-size-h2);
+				text-transform: uppercase;
+				letter-spacing: var(--letter-spacing-heading);
+				font-weight: 300;
+				margin-bottom: 1rem;
+			}
+
+			/* Fließtext */
+			p {
+				font-size: var(--font-size-body);
+				line-height: var(--line-height-body);
+				margin-bottom: 1rem;
+			}
+
+			/* Kleiner Text */
+			.small-text {
+				font-size: var(--font-size-small);
+				line-height: var(--line-height-small);
+			}
+
+			/* Navigation */
+			nav a {
+				font-size: var(--font-size-body);
+				text-transform: uppercase;
+				letter-spacing: var(--letter-spacing-heading);
+			}
+
+			/* Vision Sections */
+			.vision-title {
+				font-size: var(--font-size-h1);
+				text-transform: uppercase;
+				letter-spacing: var(--letter-spacing-heading);
+			}
+
+			.vision-text {
+				font-size: var(--font-size-body);
+				line-height: var(--line-height-body);
+			}
+
+			/* Tabellen */
+			.property-table th {
+				font-size: var(--font-size-body);
+				text-transform: uppercase;
+				letter-spacing: var(--letter-spacing-heading);
+				font-weight: 300;
+			}
+
+			.property-table td {
+				font-size: var(--font-size-body);
+				line-height: var(--line-height-body);
+			}
+
 		</style>
 		<!-- GSAP & ScrollTrigger Scripts -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -664,7 +707,7 @@
 						<a href="#zielgruppen" class="nav-link">Zielgruppen</a>
 						<a href="#betriebskosten" class="nav-link">Betriebskosten</a>
 						<a href="#finanzmodell" class="nav-link">Finanzmodell</a>
-						<a href="#investment" class="nav-link">Investment</a>
+						<a href="#geografische-lage" class="nav-link">Geografische Lage</a>
 					</div>
 				</div>
 				<div class="nav-burger">
@@ -681,7 +724,7 @@
 				<a href="#zielgruppen" class="nav-link">Zielgruppen</a>
 				<a href="#betriebskosten" class="nav-link">Betriebskosten</a>
 				<a href="#finanzmodell" class="nav-link">Finanzmodell</a>
-				<a href="#investment" class="nav-link">Investment</a>
+				<a href="#geografische-lage" class="nav-link">Geografische Lage</a>
 			</div>
 		</nav>
 
@@ -716,11 +759,11 @@
 		<section id="luxus" class="feature-section">
 			<div class="feature-container">
 				<div class="feature-text">
-					<h2 class="feature-heading">LUXUS IM EINKLANG MIT DER NATUR</h2>
+					<h2 class="vision-title" style="color: var(--text-light);">LUXUS IM EINKLANG MIT DER NATUR</h2>
 					<p class="feature-description">
 						Eingebettet in die atemberaubende Landschaft von Are Guling, verbindet unsere Villa modernste Architektur mit der unberührten Schönheit Lomboks. Der Infinity-Pool verschmilzt nahtlos mit dem Horizont des Indischen Ozeans, während Open-Air-Bereiche die Grenze zwischen innen und außen aufheben.
 					</p>
-					<h2 class="feature-heading" style="margin-top: 3rem;">REGIONALE ENTWICKLUNG</h2>
+					<h2 class="vision-title" style="color: var(--text-light); margin-top: 3rem;">REGIONALE ENTWICKLUNG</h2>
 					<p class="feature-description">
 						Lombok ist Teil der staatlichen indonesischen Tourismusstrategie "10 New Balis". Im Fokus steht Mandalika – eine Sonderwirtschaftszone (KEK) mit Großinvestitionen in Hotels, Freizeitprojekte und Infrastruktur wie den MotoGP Circuit (seit 2022), neue Schnellstraßen und einen modernisierten Flughafen (LOP) mit internationalen Direktverbindungen.
 					</p>
@@ -917,9 +960,72 @@
 					<p class="vision-text">
 						Empfohlen wird der Start der Bauplanung 2025, Baubeginn 2026, Soft Opening Ende 2026. Die Kombination aus professioneller Struktur, persönlichem Netzwerk und attraktiver Lage bildet ein starkes Fundament für langfristigen Erfolg und Wertezuwachs.
 					</p>
+				</div>
 			</div>
-		</div>
 		</section>
+
+		<!-- Geografische Lage Section -->
+		<section id="geografische-lage" class="vision" style="background-color: var(--primary-blue); color: var(--text-light);">
+			<div class="vision-container" style="grid-template-columns: 1fr; max-width: 1600px; margin: 0 auto;">
+				<div class="vision-content" style="max-width: none; padding: 0 2rem 0 0;">
+					<h2 class="vision-title" style="color: var(--text-light);">GEOGRAFISCHE LAGE</h2>
+					<p class="vision-text" style="color: var(--text-light);">
+						Unsere Villa befindet sich in Are Guling, Lombok, Indonesien. Die exakte Position ist:
+					</p>
+					<div class="location-map" style="margin: 4rem -16.5%; height: 400px; width: 133%; background-color: rgba(45, 118, 136, 0.1); border-radius: 12px; position: relative; overflow: hidden;">
+						<iframe 
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1234567890123!2d116.2356!3d-8.8954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwNTMnNDMuNSJTIDExNsKwMTQnMDguMiJF!5e0!3m2!1sde!2sch!4v1234567890!5m2!1sde!2sch&t=k" 
+							width="100%" 
+							height="100%" 
+							style="border:0;" 
+							allowfullscreen="" 
+							loading="lazy" 
+							referrerpolicy="no-referrer-when-downgrade">
+						</iframe>
+					</div>
+					<div style="display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 2rem;">
+						<div style="flex: 1; min-width: 300px; background-color: rgba(45, 118, 136, 0.1); padding: 2rem; border-radius: 12px;">
+							<h3 style="font-size: 1.2rem; font-weight: 300; margin-bottom: 1rem; letter-spacing: 0.1em; text-transform: uppercase;">KOORDINATEN</h3>
+							<p style="font-size: 1.1rem; line-height: 1.6; font-weight: 300;">8°53'43.5"S 116°14'08.2"E</p>
+						</div>
+						<div style="flex: 1; min-width: 300px; background-color: rgba(45, 118, 136, 0.1); padding: 2rem; border-radius: 12px;">
+							<h3 style="font-size: 1.2rem; font-weight: 300; margin-bottom: 1rem; letter-spacing: 0.1em; text-transform: uppercase;">HÖHE</h3>
+							<p style="font-size: 1.1rem; line-height: 1.6; font-weight: 300;">50 Meter über Meer</p>
+						</div>
+						<div style="flex: 1; min-width: 300px; background-color: rgba(45, 118, 136, 0.1); padding: 2rem; border-radius: 12px;">
+							<h3 style="font-size: 1.2rem; font-weight: 300; margin-bottom: 1rem; letter-spacing: 0.1em; text-transform: uppercase;">UMGEBUNG</h3>
+							<p style="font-size: 1.1rem; line-height: 1.6; font-weight: 300;">
+								Surfspot: 5 Min.<br>
+								Strand: 10 Min.<br>
+								Restaurants: 15 Min.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+		<script>
+			function initMap() {
+				const location = { lat: -8.8954, lng: 116.2356 };
+				const map = new google.maps.Map(document.getElementById("map"), {
+					zoom: 15,
+					center: location,
+					mapTypeId: 'satellite'
+				});
+				
+				new google.maps.Marker({
+					position: location,
+					map: map,
+					title: "Are Guling"
+				});
+			}
+			
+			window.onload = function() {
+				initMap();
+			};
+		</script>
 
 		<script>
 			// Register GSAP Plugins
