@@ -1,52 +1,37 @@
-# WAVEN - Luxury Villa Lombok
+# Waven Website
 
-## Projektstatus
-- Aktuelle Version: V4 (stabil)
-- Website läuft erfolgreich auf Port 8000
-- Erreichbar von localhost (::1) und Geräten im Netzwerk (192.168.1.219)
-- Alle Bilder und CSS-Dateien werden korrekt geladen
-
-## GitHub Repository
-- URL: https://github.com/Gixbond/waven-website
-- GitHub Pages URL (wenn aktiviert): https://gixbond.github.io/waven-website/
+Dies ist die aktuelle Version der Waven Website mit integrierter Google Maps-Karte.
 
 ## Wichtige Dateien
-- `index.html` - Hauptdatei
-- `index-stable-v4.html` - Backup der stabilen V4-Version
-- Bilder im `/images/` Verzeichnis:
-  - waven-logo.svg
-  - hero.jpg
-  - vision.jpg
-  - luxus.jpg
-- CSS-Dateien:
-  - styles.css
-  - desktop.css
-  - mobile.css
 
-## Bekannte Probleme
-- Animationen funktionieren nur bei initialem Laden
-- Text kann bei bestimmten Animationen verschwinden
-- V4 ist die stabilste Version
+- `index.html` - Die aktuelle Hauptdatei
+- `backup.sh` - Script zum Erstellen von Backups
+- `backups/` - Verzeichnis mit gespeicherten Versionen
 
-## Lokale Entwicklung
-- Python-Server läuft auf Port 8000
-- Erreichbar unter: http://localhost:8000/
-- Netzwerk-Zugriff unter: http://192.168.1.219:8000/
+## Backup-System
 
-## Server-Logs
-Die Website wird regelmäßig von folgenden IPs aufgerufen:
-- localhost (::1)
-- 192.168.1.219 (Netzwerkgerät)
+Das Backup-System speichert automatisch Versionen der Website mit Zeitstempel.
 
-## Technische Details
-- Verwendete Technologien:
-  - HTML5
-  - CSS3
-  - JavaScript
-  - GSAP für Animationen
-  - Python HTTP Server für lokale Entwicklung
+### Backup erstellen
+```bash
+./backup.sh
+```
 
-## Wichtige Hinweise
-- Die V4-Version ist die stabilste Version und sollte als Basis für zukünftige Entwicklungen verwendet werden
-- Alle Änderungen sollten zuerst lokal getestet werden
-- Vor größeren Änderungen immer ein Backup der aktuellen Version erstellen
+### Zurück zu einer früheren Version
+```bash
+cp backups/index_YYYYMMDD_HHMMSS.html index.html
+```
+
+## Entwicklung
+
+- Arbeiten Sie mit `index.html` als Hauptdatei
+- Erstellen Sie vor wichtigen Änderungen immer ein Backup
+- Die Backups werden im `backups/` Verzeichnis mit Zeitstempel gespeichert
+
+## Lokale Vorschau
+
+Um die Website lokal zu testen:
+```bash
+python3 -m http.server 8000
+```
+Öffnen Sie dann http://localhost:8000/index.html in Ihrem Browser.
